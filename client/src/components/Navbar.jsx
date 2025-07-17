@@ -38,7 +38,7 @@ const Navbar = () => {
           >
             {menuItems.map((item, i) => (
               <li key={i}>
-                <a href={item.url}>{item.name}</a>
+                <a href={item.imageUrl}>{item.name}</a>
               </li>
             ))}
           </ul>

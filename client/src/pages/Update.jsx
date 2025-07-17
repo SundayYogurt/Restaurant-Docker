@@ -9,14 +9,14 @@ const Update = () => {
 
   // สร้าง state สำหรับเก็บข้อมูลร้านอาหารที่จะแก้ไข
   const [restaurant, setRestaurant] = useState({
-    title: "",
+    name: "",
     type: "",
-    img: "",
+    imageUrl: "",
   });
 
   // 2. ดึงข้อมูลร้านอาหารจาก API ตาม id เมื่อ id เปลี่ยน
   useEffect(() => {
-    fetch("http://localhost:3001/restaurants/" + id)
+    fetch("http://localhost:3000/api/v1/restaurant/" + id)
       .then((res) => {
         // แปลง response เป็น json
         return res.json();
@@ -40,18 +40,21 @@ const Update = () => {
   const handleSubmit = async () => {
     // เริ่มการรอ
     try {
-      const response = await fetch("http://localhost:3001/restaurants/" + id, {
+      const response = await fetch("http://localhost:3000/api/v1/restaurant/" + id, {
         // ส่งข้อมูลแบบ PUT เพื่ออัปเดต
         method: "PUT",
         body: JSON.stringify(restaurant),
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
       if (response.ok) {
         // ถ้าอัปเดตสำเร็จ แจ้งเตือนและล้างฟอร์ม
         alert("Restaurant Updated successfully");
         setRestaurant({
-          title: "",
+          name: "",
           type: "",
-          img: "",
+          imageUrl: "",
         });
       }
     } catch (error) {
@@ -77,10 +80,10 @@ const Update = () => {
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
-                name="title"
-                placeholder="Title"
+                name="name"
+                placeholder="name"
                 onChange={handleChange}
-                value={restaurant.title}
+                value={restaurant.name}
               ></input>
             </li>
             <li>
@@ -103,18 +106,18 @@ const Update = () => {
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
-                name="img"
+                name="imageUrl"
                 placeholder="Image"
                 onChange={handleChange}
-                value={restaurant.img}
+                value={restaurant.imageUrl}
               ></input>
               {/* แสดง preview รูปภาพถ้ามี */}
               {restaurant && (
                 <div className="flex items-center gap-3 m-5 ">
-                  {restaurant.img && (
+                  {restaurant.imageUrl && (
                     <img
                       className="rounded-2xl"
-                      src={restaurant.img}
+                      src={restaurant.imageUrl}
                       alt="preview"
                     ></img>
                   )}

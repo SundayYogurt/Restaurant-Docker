@@ -4,9 +4,9 @@ import React, { useState } from "react";
 const AddRes = () => {
   // state สำหรับเก็บข้อมูลร้านอาหารใหม่
   const [restaurant, setRestaurant] = useState({
-    title: "",
+    name: "",
     type: "",
-    img: "",
+    imageUrl: "",
   });
 
   // handleChange อัปเดต state เมื่อกรอกข้อมูล
@@ -18,16 +18,19 @@ const AddRes = () => {
   // handleSubmit ส่งข้อมูลไป API (POST)
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:3001/restaurants", {
+      const response = await fetch("http://localhost:3000/api/v1/restaurant", {
         method: "POST",
         body: JSON.stringify(restaurant),
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
-      if (response.ok) {
+      if (response.status) {
         alert("Restaurant added successfully");
         setRestaurant({
-          title: "",
+          name: "",
           type: "",
-          img: "",
+          imageUrl: "",
         });
       }
     } catch (error) {
@@ -44,15 +47,15 @@ const AddRes = () => {
               <label className="text-4xl">added form</label>
             </li>
             <li>
-              <label>Title</label>
+              <label>Name</label>
               <br />
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
-                name="title"
-                placeholder="Title"
+                name="name"
+                placeholder="Name"
                 onChange={handleChange}
-                value={restaurant.title}
+                value={restaurant.name}
               ></input>
             </li>
             <li>
@@ -73,18 +76,18 @@ const AddRes = () => {
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
-                name="img"
+                name="imageUrl"
                 placeholder="Image"
                 onChange={handleChange}
-                value={restaurant.img}
+                value={restaurant.imageUrl}
               ></input>
               {/* แสดง preview รูป */}
               {restaurant && (
                 <div className="flex items-center gap-3 m-5 ">
-                  {restaurant.img && (
+                  {restaurant.imageUrl && (
                     <img
                       className="rounded-2xl"
-                      src={restaurant.img}
+                      src={restaurant.imageUrl}
                       alt="preview"
                     ></img>
                   )}

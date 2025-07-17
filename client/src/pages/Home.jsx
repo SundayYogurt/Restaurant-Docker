@@ -12,10 +12,10 @@ const Home = () => {
       setFilterRestaurant(restaurants)
       return
     }
-    // กรองร้านอาหารที่ title หรือ type ตรงกับ keyword
+    // กรองร้านอาหารที่ name หรือ type ตรงกับ keyword
     const result = restaurants.filter((restaurant)=>{
       return (
-        restaurant.title.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()) ||
+        restaurant.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()) ||
         restaurant.type.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
       )
     })
@@ -27,7 +27,8 @@ const Home = () => {
 
   // ดึงข้อมูลร้านอาหารจาก API เมื่อ component mount
   useEffect(() => {
-    fetch("http://localhost:3001/restaurants") // เปลี่ยน port ให้ตรงกับ API ที่รันอยู่จริง
+    
+    fetch("http://localhost:3000/api/v1/restaurant") // เปลี่ยน port ให้ตรงกับ API ที่รันอยู่จริง
       .then((res) => {
         return res.json();
       })

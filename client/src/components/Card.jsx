@@ -8,7 +8,7 @@ const Card = (props) => {
      if (!confirmDelete) return; // ถ้าไม่ยืนยัน ก็ไม่ทำอะไร
 
     try {
-      const response = await fetch("http://localhost:3001/restaurants/"+ id, {
+      const response = await fetch("http://localhost:3000/api/v1/restaurant/"+ id, {
         // รอ
         method: "DELETE"
       });
@@ -26,12 +26,12 @@ const Card = (props) => {
       <figure>
         <img
           className=" max-w-2xl max-h-56 w-full object-cover"
-          src={props.img}
+          src={props.imageUrl}
           alt="Shoes"
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{props.title}</h2>
+        <h2 className="card-title">{props.name}</h2>
         <p>{props.type}</p>
         <div className="card-actions justify-end">
           <a href={`/update/${props.id}`}><button className="btn btn-primary">Edit</button></a>
